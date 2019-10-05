@@ -1,5 +1,7 @@
 package duke.ui;
 
+import duke.MainWindow;
+
 import java.util.Scanner;
 
 import static duke.common.Messages.filePath;
@@ -10,22 +12,27 @@ import static duke.common.Messages.DIVIDER;
 public class Ui {
 
     private Scanner scanner;
+    private MainWindow mainWindow;
 
-    public Ui() {
-        this.scanner = new Scanner(System.in);
+    public Ui(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
     }
+
+//    public Ui() {
+//        this.scanner = new Scanner(System.in);
+//    }
 
     /**
      * Display welcome message of the program.
      */
     public void showWelcome() {
         String logo =
-            "      ___         _        \n"
-            + "     |  _ \\ _   _| | _____ \n"
-            + "     | | | | | | | |/ / _ \\\n"
-            + "     | |_| | |_| |   <  __/\n"
-            + "     |____/ \\__,_|_|\\_\\___|\n"
-            + "\n";
+                "      ___         _        \n"
+                        + "     |  _ \\ _   _| | _____ \n"
+                        + "     | | | | | | | |/ / _ \\\n"
+                        + "     | |_| | |_| |   <  __/\n"
+                        + "     |____/ \\__,_|_|\\_\\___|\n"
+                        + "\n";
 
         System.out.println(DIVIDER + logo + "     Hello! I'm Duke\n" + "     What can I do for you?\n" + DIVIDER);
     }
@@ -43,10 +50,14 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        System.out.println(ERROR_MESSAGE_LOADING + filePath);
+        mainWindow.handleLoadingError();
     }
 
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public void showListTask() {
+        mainWindow.handleListTask();
     }
+
+//    public void showError(String errorMessage) {
+//        System.out.println(errorMessage);
+//    }
 }
