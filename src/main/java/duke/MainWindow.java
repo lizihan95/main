@@ -1,11 +1,13 @@
 package duke;
 
 import duke.exception.DukeException;
+import duke.tasklist.TaskList;
 import duke.ui.DialogBox;
 import duke.ui.ExitWindow;
 import duke.ui.HelpWindow;
 import duke.ui.Ui;
 import javafx.animation.FadeTransition;
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,7 +24,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,16 +54,19 @@ public class MainWindow extends AnchorPane {
     private AnchorPane root;
 
     @FXML
-    private ListView listView;
+    private ListView<String> listView;
 
     @FXML
     public void initialize() {
         if (!Main.isScreenLoaded) {
             loadStartingScreen();
         }
-        Ui ui = new Ui(this);
+        Ui ui = new Ui();
         duke = new Duke(ui);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+            DialogBox.getWelcome(duke.showWelcome())
+        );
     }
 
     public void setDuke(Duke d) {
@@ -76,23 +80,27 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws DukeException {
         String input = userInput.getText();
-//        duke.runProgram(input);
-        String response = duke.getResponse(input);
-        resultDisplay.setText(input);
-        for (int i = 0; i < duke.getList().size(); i++) {
-            listView.getItems().add(duke.getList().get(i));
+//        String response = duke.getResponse(input);
+//        listView.getItems().addAll(duke.getList());
+        if (input.isEmpty()) {
+            resultDisplay.setText("Pls input command to proceed");
+        } else {
+            resultDisplay.clear();
+            listView.getItems().clear();
+            for (int i = 0; i < duke.getSize() / 3; i++) {
+                listView.getItems().add(duke.getList().get(i));
+            }
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input)
+            );
+            userInput.clear();
         }
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog("hi", dukeImage)
-        );
-        userInput.clear();
     }
 
     public void handleListTask() {
-        for (int i = 0; i < duke.getList().size(); i++) {
-            listView.getItems().add(duke.getList().get(i));
-        }
+//        for (int i = 0; i < duke.getList().size(); i++) {
+//            listView.getItems().add(duke.getList().get(i));
+//        }
     }
 
     public void handleLoadingError() {
@@ -144,10 +152,10 @@ public class MainWindow extends AnchorPane {
             });
 
             fadeOut.setOnFinished((e) -> {
+                Main.isScreenLoaded = true;
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
                     AnchorPane ap = fxmlLoader.load();
-//                    AnchorPane parentContent = FXMLLoader.load(getClass().getResource(("/view/MainWindow.fxml")));
                     root.getChildren().setAll(ap);
                     fxmlLoader.<MainWindow>getController().setDuke(duke);
                 } catch (IOException ex) {
