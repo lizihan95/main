@@ -29,20 +29,6 @@ public class DeleteIngredientCommand extends Command {
     }
 
     /**
-     * Validates that user inputs an integer value for the index.
-     * @param input String containing integer input from user for the index
-     * @return true if the user inputs an integer and false otherwise
-     */
-    private static boolean isParsable(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    /**
      * Processes the delete command to delete task in the task list.
      * @param ingredientList contains the task list
      * @param ui deals with interactions with the user
@@ -54,7 +40,7 @@ public class DeleteIngredientCommand extends Command {
     public void execute(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) throws DukeException {
         if (userInput.trim().equals(COMMAND_DELETE_INGREDIENT)) {
             throw new DukeException(ERROR_MESSAGE_EMPTY_INDEX + MESSAGE_FOLLOWUP_EMPTY_INDEX);
-        } else if (userInput.trim().charAt(6) == ' ') {
+        } else if (userInput.trim().charAt(16) == ' ') {
             String description = userInput.split("\\s",2)[1].trim();
             if (isParsable(description)) {
                 //converting string to integer
@@ -74,6 +60,20 @@ public class DeleteIngredientCommand extends Command {
             }
         } else {
             throw new DukeException(ERROR_MESSAGE_RANDOM);
+        }
+    }
+
+    /**
+     * Validates that user inputs an integer value for the index.
+     * @param input String containing integer input from user for the index
+     * @return true if the user inputs an integer and false otherwise
+     */
+    private static boolean isParsable(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 

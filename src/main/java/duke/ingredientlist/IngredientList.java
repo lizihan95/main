@@ -23,7 +23,7 @@ public class IngredientList {
         this.ingredientList = ingredientList;
     }
 
-    public ArrayList<String> listIngredients() {
+    public ArrayList<String> listOfIngredients() {
         ArrayList<String> arrList = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
             final int displayedIndex = i + DISPLAYED_INDEX_OFFSET;
@@ -52,7 +52,7 @@ public class IngredientList {
         ingredientList.add(new Ingredient(ingredientName, Quantity));
         int index = ingredientList.size();
         if (index == 1) {
-            msg = " task in the list.";
+            msg = " ingredient in the list.";
         } else {
             msg = MESSAGE_ITEMS2;
         }
@@ -62,7 +62,7 @@ public class IngredientList {
     // delete ingredient by index on list
     public void deleteIngredient(int i) {
         if (ingredientList.size() - 1 <= 1) {
-            msg = " task in the list.";
+            msg = " ingredient in the list.";
         } else {
             msg = MESSAGE_ITEMS2;
         }

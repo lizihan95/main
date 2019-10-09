@@ -19,9 +19,6 @@ public class GeneralMessages {
     public static final String MESSAGE_ITEMS1 = "     Now you have ";
     public static final String MESSAGE_ITEMS2 = " tasks in the list.";
     public static final String MESSAGE_MARKED = "     Nice! I've marked this task as done:\n";
-    public static final String MESSAGE_TASKED = "     Here are the tasks in your list:";
-
-
 
     public static final String ERROR_MESSAGE_EMPTY_INDEX = "     OOPS!!! The index cannot be empty.\n";
     public static final String ERROR_MESSAGE_EMPTY_LIST = "     OOPS!!! The list is empty.\n     Kindly add a task.";

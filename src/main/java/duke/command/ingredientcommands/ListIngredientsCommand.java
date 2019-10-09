@@ -5,7 +5,7 @@ import duke.ingredientlist.IngredientList;
 import duke.storage.IngredientStorage;
 import duke.ui.Ui;
 
-import static duke.common.GeneralMessages.MESSAGE_TASKED;
+import static duke.common.IngredientMessages.MESSAGE_LIST_INGREDIENTS;
 
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
@@ -29,9 +29,9 @@ public class ListIngredientsCommand extends Command {
      */
 
     public void execute(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) {
-        System.out.println(MESSAGE_TASKED);
-        for (int i = 0; i < ingredientList.listIngredients().size(); i++) {
-            System.out.println(ingredientList.listIngredients().get(i));
+        System.out.println(MESSAGE_LIST_INGREDIENTS);
+        for (int i = 0; i < ingredientList.listOfIngredients().size(); i++) {
+            System.out.println(ingredientList.listOfIngredients().get(i));
         }
     }
 

@@ -27,9 +27,4 @@ public class Ingredient {
         return ingredientName + " [" + quantity + "] ";
     }
 
-    /*
-    public ingredientType getIngredientType() {
-        return ingredientType;
-    }
-    */
 }

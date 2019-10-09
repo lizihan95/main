@@ -35,6 +35,8 @@ public class Duke {
         ingredientStorage = new IngredientStorage(filePathIngredients);
         try {
             ingredientList = new IngredientList(ingredientStorage.load());
+            // bookingList = new BookingList(bookingStorage.load());
+            // recipeList = new RecipeList(recipeStorage.load());
         } catch (DukeException e) {
             ui.showIngredientLoadingError();
             ingredientList = new IngredientList();
