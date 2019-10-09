@@ -1,13 +1,25 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
+
+import java.text.ParseException;
+import java.util.ArrayList;
 
 /**
  * Handles the bye command and inherits all the fields and methods of Command parent class.
  */
 public class ByeCommand extends Command {
+
+    /**
+     * Constructor for class ByeCommand.
+     * @param userInputCommand String containing input command from user
+     */
+    public ByeCommand(String userInputCommand) {
+        this.userInputCommand = userInputCommand;
+    }
 
     /**
      * Display the exit message and the program.
