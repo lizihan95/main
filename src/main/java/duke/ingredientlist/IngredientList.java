@@ -5,8 +5,10 @@ import duke.task.ingredienttasks.Ingredient;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static duke.common.Messages.*;
-import static duke.common.Messages.MESSAGE_ITEMS1;
+import static duke.common.GeneralMessages.*;
+import static duke.common.GeneralMessages.MESSAGE_ITEMS1;
+import static duke.common.IngredientMessages.MESSAGE_INGREDIENT_ADDED;
+import static duke.common.IngredientMessages.MESSAGE_INGREDIENT_DELETED;
 
 public class IngredientList {
 
@@ -54,7 +56,7 @@ public class IngredientList {
         } else {
             msg = MESSAGE_ITEMS2;
         }
-        System.out.println(MESSAGE_ADDED + "       " + ingredientList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
+        System.out.println(MESSAGE_INGREDIENT_ADDED + "       " + ingredientList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
     // delete ingredient by index on list
@@ -64,7 +66,7 @@ public class IngredientList {
         } else {
             msg = MESSAGE_ITEMS2;
         }
-        System.out.println(MESSAGE_DELETE + "       " + ingredientList.get(i)
+        System.out.println(MESSAGE_INGREDIENT_DELETED + "       " + ingredientList.get(i)
                 + "\n" + MESSAGE_ITEMS1 + (ingredientList.size() - 1) + msg);
         ingredientList.remove(ingredientList.get(i));
     }

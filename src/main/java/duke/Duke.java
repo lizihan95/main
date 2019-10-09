@@ -7,9 +7,11 @@ import duke.parser.Parser;
 import duke.storage.IngredientStorage;
 import duke.ui.Ui;
 
-import static duke.common.Messages.filePathIngredients;
-
 import java.text.ParseException;
+
+import static duke.common.GeneralMessages.filePathIngredients;
+// import static duke.common.GeneralMessages.filePathBookings;
+// import static duke.common.GeneralMessages.filePathRecipes;
 
 /**
  * Duke processes different commands.

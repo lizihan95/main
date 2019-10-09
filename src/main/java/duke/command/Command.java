@@ -11,6 +11,7 @@ import java.text.ParseException;
  * Abstract class to represent command.
  */
 public abstract class Command {
+
     protected String userInput;
     public CommandType commandType;
 

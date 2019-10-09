@@ -1,4 +1,4 @@
-package duke.command.inventorycommands;
+package duke.command.ingredientcommands;
 
 import duke.command.Command;
 import duke.exception.DukeException;
@@ -9,8 +9,10 @@ import duke.ui.Ui;
 
 import java.text.ParseException;
 
-import static duke.common.Messages.*;
+import static duke.common.GeneralMessages.*;
 import static duke.common.IngredientMessages.ERROR_MESSAGE_INCOMPLETE;
+import static duke.common.IngredientMessages.ERROR_MESSAGE_INVALID_QUANTITY;
+import static duke.common.IngredientMessages.ERROR_MESSAGE_ADD_INCORRECT_FORMAT;
 import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
 
 public class AddIngredientCommand extends Command {
@@ -34,6 +36,8 @@ public class AddIngredientCommand extends Command {
                     ingredientList.addIngredient(ingredientName, Integer.parseInt(quantity));
                     ingredientStorage.saveFile(ingredientList);
                 }
+            } else {
+                throw new DukeException(ERROR_MESSAGE_ADD_INCORRECT_FORMAT);
             }
         } else {
             throw new DukeException(ERROR_MESSAGE_RANDOM);
@@ -45,6 +49,7 @@ public class AddIngredientCommand extends Command {
             Integer.parseInt(input);
             return true;
         } catch (NumberFormatException e) {
+            System.out.println(ERROR_MESSAGE_INVALID_QUANTITY);
             return false;
         }
     }

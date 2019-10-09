@@ -1,11 +1,11 @@
-package duke.command.inventorycommands;
+package duke.command.ingredientcommands;
 
 import duke.command.Command;
 import duke.ingredientlist.IngredientList;
 import duke.storage.IngredientStorage;
 import duke.ui.Ui;
 
-import static duke.common.Messages.MESSAGE_TASKED;
+import static duke.common.GeneralMessages.MESSAGE_TASKED;
 
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
@@ -18,6 +18,7 @@ public class ListIngredientsCommand extends Command {
      */
     public ListIngredientsCommand(String userInput) {
         this.userInput = userInput;
+        this.commandType = CommandType.INGREDIENT;
     }
 
     /**

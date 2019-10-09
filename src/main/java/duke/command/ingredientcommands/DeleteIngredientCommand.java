@@ -1,4 +1,4 @@
-package duke.command.inventorycommands;
+package duke.command.ingredientcommands;
 
 import duke.command.Command;
 import duke.exception.DukeException;
@@ -6,12 +6,12 @@ import duke.ingredientlist.IngredientList;
 import duke.storage.IngredientStorage;
 import duke.ui.Ui;
 
-import static duke.common.Messages.MESSAGE_FOLLOWUP_EMPTY_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_EMPTY_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_EMPTY_LIST;
-import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+import static duke.common.GeneralMessages.MESSAGE_FOLLOWUP_EMPTY_INDEX;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_EMPTY_INDEX;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_EMPTY_LIST;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_INVALID_INDEX;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_UNKNOWN_INDEX;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_RANDOM;
 import static duke.common.IngredientMessages.COMMAND_DELETE_INGREDIENT;
 
 /**
@@ -25,6 +25,7 @@ public class DeleteIngredientCommand extends Command {
      */
     public DeleteIngredientCommand(String userInput) {
         this.userInput = userInput;
+        this.commandType = CommandType.INGREDIENT;
     }
 
     /**

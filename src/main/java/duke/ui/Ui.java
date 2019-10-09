@@ -2,10 +2,10 @@ package duke.ui;
 
 import java.util.Scanner;
 
-import static duke.common.Messages.filePathIngredients;
-import static duke.common.Messages.MESSAGE_BYE;
-import static duke.common.Messages.ERROR_MESSAGE_LOADING;
-import static duke.common.Messages.DIVIDER;
+import static duke.common.GeneralMessages.filePathIngredients;
+import static duke.common.GeneralMessages.MESSAGE_BYE;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_LOADING;
+import static duke.common.GeneralMessages.DIVIDER;
 
 public class Ui {
 

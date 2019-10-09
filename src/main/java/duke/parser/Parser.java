@@ -3,14 +3,14 @@ package duke.parser;
 import duke.command.ByeCommand;
 import duke.command.Command;
 
-import duke.command.inventorycommands.AddIngredientCommand;
-import duke.command.inventorycommands.ListIngredientsCommand;
+import duke.command.ingredientcommands.AddIngredientCommand;
+import duke.command.ingredientcommands.ListIngredientsCommand;
 import duke.exception.DukeException;
 
 import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
 import static duke.common.IngredientMessages.COMMAND_LIST_INGREDIENTS;
-import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
-import static duke.common.Messages.COMMAND_BYE;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_RANDOM;
+import static duke.common.GeneralMessages.COMMAND_BYE;
 
 
 /**
