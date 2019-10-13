@@ -1,35 +1,63 @@
 package duke.model.recipe;
 
+import duke.list.recipelist.RecipeIngredientList;
 import duke.task.recipetasks.Feedback;
 import duke.task.recipetasks.PrepStep;
 import duke.task.recipetasks.Rating;
 import duke.task.recipetasks.RecipeIngredient;
+import org.javatuples.Triplet;
 
+import javax.print.DocFlavor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Recipe {
 
     private String recipeTitle;
-    private List<RecipeIngredient> recipeIngredient = new ArrayList<>();
-    private List<PrepStep> prepStep = new ArrayList<>();
+    private RecipeIngredient recipeIngredient;
+//    private PrepStepList prepStep;
     private Rating rating;
     private Feedback feedback;
+    private Triplet<RecipeIngredient, Rating, Feedback> recipe;
 
-    public Recipe(String recipeTitle) {
-        this.recipeTitle = recipeTitle;
+    public Recipe(Triplet<RecipeIngredient, Rating, Feedback> recipe) {
+        this.recipe = recipe;
     }
 
-    public Recipe(ArrayList<RecipeIngredient> ingredient, ArrayList<PrepStep> prepStep, String feedback, String rating) {
+    public Map<String, Recipe> toSaveString() {
+        Map<String, Recipe> recipeMap = new HashMap<String, Recipe>();
+        return recipeMap;
     }
 
-    public void addIngredient(RecipeIngredient ingredient) {
-        recipeIngredient.add(ingredient);
-    }
+    public String toString() {
+        return "[Recipe Ingredient: " + recipeIngredient + "] "
+                + "[Rating: " + rating + "] " + "[Feedback: " + feedback + "] ";    }
 
-    public void addPrepStep(PrepStep prepstep) { prepStep.add(prepstep); }
+//    public String getRecipeTitle() {
+//        return recipeTitle;
+//    }
+//
+//    public RecipeIngredientList getRecipeTngredientList() {
+//        return recipeIngredientList;
+//    }
+//
+//    public Rating getRating() {
+//        return rating;
+//    }
+//
+//    public Feedback getFeedback() {
+//        return feedback;
+//    }
 
-    public void addRating(Rating rating) { this.rating = rating; }
+//    public void addIngredient(RecipeIngredient recipeIngredient) {
+//        recipeIngredient.add(recipeIngredient);
+//    }
 
-    public void addFeedback(Feedback feedback) { this.feedback = feedback; }
+//    public void addPrepStep(PrepStep prepstep) { prepStep.add(prepstep); }
+
+//    public void addRating(Rating rating) { this.rating = rating; }
+//
+//    public void addFeedback(Feedback feedback) { this.feedback = feedback; }
 }

@@ -1,21 +1,26 @@
 package duke;
 
-import duke.command.CommandIngredients;
-import duke.command.CommandTest;
+import duke.command.CommandRecipe;
+import duke.command.CommandRecipeIngredient;
 import duke.exception.DukeException;
-import duke.ingredientlist.IngredientList;
+import duke.list.ingredientlist.IngredientList;
+import duke.list.recipelist.RecipeIngredientList;
 import duke.parser.Parser;
-import duke.recipelist.RecipeList;
+import duke.list.recipelist.RecipeList;
 import duke.storage.IngredientStorage;
+import duke.storage.RecipeIngredientStorage;
+import duke.storage.RecipeStorage;
 import duke.storage.Storage;
-import duke.tasklist.TaskList;
+import duke.list.tasklist.TaskList;
+import duke.task.recipetasks.Feedback;
+import duke.task.recipetasks.Rating;
+import duke.task.recipetasks.RecipeIngredient;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.text.ParseException;
 
-import static duke.common.Messages.filePathIngredients;
-import static duke.common.Messages.filePath;
+import static duke.common.Messages.*;
 
 /**
  * Duke processes different commands.
@@ -27,11 +32,16 @@ public class Duke {
     private Ui ui;
 
     private IngredientStorage ingredientStorage;
+    private RecipeIngredientStorage recipeIngredientStorage;
     // private BookingStorage bookingStorage;
-    // private RecipeStorage recipeStorage;
+    private RecipeStorage recipeStorage;
     private IngredientList ingredientList;
+    private RecipeIngredientList recipeIngredientList;
     // private BookingList bookingList;
     private RecipeList recipeList;
+    private RecipeIngredient recipeIngredient;
+    private Rating rating;
+    private Feedback feedback;
 
 //    /**
 //     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes.
@@ -42,9 +52,12 @@ public class Duke {
         this.ui = ui;
         storage = new Storage(filePath);
         ingredientStorage = new IngredientStorage(filePathIngredients);
+        recipeIngredientStorage = new RecipeIngredientStorage(filePathRecipeIngredients);
         try {
             taskList = new TaskList(storage.load());
             ingredientList = new IngredientList(ingredientStorage.load());
+            recipeIngredientList = new RecipeIngredientList(recipeIngredientStorage.load());
+//            recipeList = new RecipeList(recipeStorage.load());
             System.out.println(taskList.getSize());
         } catch (DukeException e) {
             ui.showIngredientLoadingError();
@@ -58,8 +71,9 @@ public class Duke {
     }
 
     public ArrayList<String> runProgram(String fullCommand) throws DukeException, ParseException {
-        CommandIngredients command = Parser.parseIngredients(fullCommand);
-        return command.feedback(ingredientList, ui, ingredientStorage);
+        CommandRecipe command = Parser.parseRecipe(fullCommand);
+        return command.feedback(recipeList, recipeIngredient,
+                rating, feedback, ui, recipeStorage);
 
 //        CommandTest command = Parser.parseTest(fullCommand);
 //        return command.feedback(taskList, ui, storage);
