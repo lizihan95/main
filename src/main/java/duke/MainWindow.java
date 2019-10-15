@@ -27,6 +27,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static duke.common.Messages.*;
+import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
+import static duke.common.RecipeMessages.COMMAND_LIST_RECIPE_INGREDIENT;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -86,12 +88,15 @@ public class MainWindow extends AnchorPane {
 //            resultDisplay.setText("Pls input a command to proceed");
         } else {
             resultDisplay.clear();
-            listView.getItems().clear();
+//            listView.getItems().clear();
+//            listViewResult.getItems().clear();
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input)
             );
             if (input.trim().equals(COMMAND_BYE)) {
                 handleExit();
+            } else if (input.trim().equals(COMMAND_HELP)) {
+                handleHelp();
             } else {
                 //will need to copy the arraylist if not duke.runProgram will be ran twice
                 //causing items to be added twice
@@ -99,8 +104,17 @@ public class MainWindow extends AnchorPane {
                 showMessage(arrayList.get(0));
 //                showMessage(duke.runProgram(input).get(0));
 //                resultDisplay.setText(duke.runProgram(input).get(0));
-                for (int i = 1; i < arrayList.size(); i++) {
-                    listView.getItems().add(arrayList.get(i));
+                if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
+                    listViewResult.getItems().clear();
+                    for (int i = 1; i < arrayList.size(); i++) {
+                        listViewResult.getItems().add(arrayList.get(i));
+                    }
+                } else {
+                    listViewResult.getItems().clear();
+                    listView.getItems().clear();
+                    for (int i = 1; i < arrayList.size(); i++) {
+                        listView.getItems().add(arrayList.get(i));
+                    }
                 }
             }
         }
@@ -135,7 +149,7 @@ public class MainWindow extends AnchorPane {
         ExitWindow exitWindow = new ExitWindow();
         Stage stage = new Stage();
         stage.setScene(new Scene(exitWindow));
-        stage.setTitle("Help");
+        stage.setTitle("Exit");
         stage.setWidth(480);
         stage.setHeight(100);
         stage.show();
