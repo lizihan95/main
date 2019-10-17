@@ -1,16 +1,19 @@
 package duke.command.inventorycommands;
 
-import duke.command.Command;
+import duke.command.CommandIngredients;
 import duke.list.ingredientlist.IngredientList;
 import duke.storage.IngredientStorage;
 import duke.ui.Ui;
 
-import static duke.common.Messages.MESSAGE_TASKED;
+import java.util.ArrayList;
+
+import static duke.common.IngredientMessages.MESSAGE_LIST_INGREDIENTS;
+import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
  */
-public class ListIngredientsCommand extends Command {
+public class ListIngredientsCommand extends CommandIngredients {
 
     /**
      * Constructor for class ListCommand.
@@ -27,11 +30,14 @@ public class ListIngredientsCommand extends Command {
      * @param ingredientStorage deals with loading tasks from the file and saving tasks in the file
      */
 
-    public void execute(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) {
-        System.out.println(MESSAGE_TASKED);
-        for (int i = 0; i < ingredientList.listIngredients().size(); i++) {
-            System.out.println(ingredientList.listIngredients().get(i));
+    public ArrayList<String> execute(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(MESSAGE_LIST_INGREDIENTS);
+        for (int i = 0; i < ingredientList.getSize(); i++) {
+            final int displayedIndex = i + DISPLAYED_INDEX_OFFSET;
+            arrayList.add("     " + displayedIndex + ". " + ingredientList.get(i));
         }
+        return arrayList;
     }
 
     @Override

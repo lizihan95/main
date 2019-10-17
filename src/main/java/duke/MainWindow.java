@@ -22,13 +22,13 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static duke.common.Messages.*;
-import static duke.common.RecipeMessages.*;
-
-
+import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
+import static duke.common.RecipeMessages.COMMAND_LIST_RECIPE_INGREDIENT;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -61,20 +61,20 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() throws ParseException, DukeException {
-        if (!Main.isScreenLoaded) {
-            loadStartingScreen();
-        }
+//        if (!Main.isScreenLoaded) {
+//            loadStartingScreen();
+//        }
         Ui ui = new Ui(this);
         duke = new Duke(ui);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-            DialogBox.getWelcome(duke.showWelcome())
+                DialogBox.getWelcome(duke.showWelcome())
         );
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
-    }
+//    public void setDuke(Duke d) {
+//        duke = d;
+//    }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -88,36 +88,35 @@ public class MainWindow extends AnchorPane {
 //            resultDisplay.setText("Pls input a command to proceed");
         } else {
             resultDisplay.clear();
-            listView.getItems().clear();
+//            listView.getItems().clear();
+//            listViewResult.getItems().clear();
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input)
             );
             if (input.trim().equals(COMMAND_BYE)) {
                 handleExit();
-//            } else if (input.trim().equals(COMMAND_ADD_RECIPE)) {
-//                handleAddRecipe(input.trim());
+            } else if (input.trim().equals(COMMAND_HELP)) {
+                handleHelp();
             } else {
-                showMessage(duke.runProgram(input).get(0));
+                //will need to copy the arraylist if not duke.runProgram will be ran twice
+                //causing items to be added twice
+                ArrayList<String> arrayList = new ArrayList<>(duke.runProgram(input));
+                showMessage(arrayList.get(0));
+//                showMessage(duke.runProgram(input).get(0));
 //                resultDisplay.setText(duke.runProgram(input).get(0));
-                for (int i = 1; i < duke.runProgram(input).size(); i++) {
-                    listView.getItems().add(duke.runProgram(input).get(i));
+                if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
+                    listViewResult.getItems().clear();
+                    for (int i = 1; i < arrayList.size(); i++) {
+                        listViewResult.getItems().add(arrayList.get(i));
+                    }
+                } else {
+                    listViewResult.getItems().clear();
+                    listView.getItems().clear();
+                    for (int i = 1; i < arrayList.size(); i++) {
+                        listView.getItems().add(arrayList.get(i));
+                    }
                 }
             }
-//            duke.run(input);
-//            if (input.trim().equals(COMMAND_LIST)) {
-//                handleListTask();
-//                for (int i = 0; i < duke.runProgram(input).size() / 3; i++) {
-//                    listViewResult.getItems().add(duke.runProgram(input).get(i));
-//                }
-//            } else if (input.trim().equals(COMMAND_BYE)) {
-//                handleExit();
-//            } else if (input.contains(COMMAND_FIND)) {
-//                if (input.trim().substring(0, 4).equals(COMMAND_FIND)) {
-//                    handleFindTask(input);
-//                }
-//            } else {
-//                resultDisplay.setText(ERROR_MESSAGE_RANDOM);
-//            }
         }
         userInput.clear();
     }
@@ -125,26 +124,6 @@ public class MainWindow extends AnchorPane {
     public void showMessage(String message) {
         resultDisplay.setText(message);
     }
-
-//    public void handleListTask() {
-//        listView.getItems().clear();
-//        for (int i = 0; i < duke.getList().size() / 3; i++) {
-//            listView.getItems().add(duke.getList().get(i));
-//        }
-//    }
-
-//    public void handleFindTask(String input) throws DukeException {
-//        if (input.trim().equals(COMMAND_FIND)) {
-//            resultDisplay.setText(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-//        } else if (input.trim().charAt(4) == ' ') {
-//            String description = input.split("\\s", 2)[1].trim();
-//            for (int i = 0; i < duke.findList(description).size() / 3; i++) {
-//                listViewResult.getItems().add("     " + (i + 1) + ". " + duke.findList(description).get(i));
-//            }
-//        } else {
-//            resultDisplay.setText(ERROR_MESSAGE_RANDOM);
-//        }
-//    }
 
     public String getInput() {
         return userInput.getText();
@@ -170,7 +149,7 @@ public class MainWindow extends AnchorPane {
         ExitWindow exitWindow = new ExitWindow();
         Stage stage = new Stage();
         stage.setScene(new Scene(exitWindow));
-        stage.setTitle("Help");
+        stage.setTitle("Exit");
         stage.setWidth(480);
         stage.setHeight(100);
         stage.show();
@@ -189,7 +168,7 @@ public class MainWindow extends AnchorPane {
 
     public void loadStartingScreen() {
         try {
-            Main.isScreenLoaded = true;
+//            Main.isScreenLoaded = true;
 
             StackPane pane = FXMLLoader.load(getClass().getResource(("/view/WelcomeScreen.fxml")));
             root.getChildren().setAll(pane);
@@ -215,12 +194,11 @@ public class MainWindow extends AnchorPane {
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
                     AnchorPane ap = fxmlLoader.load();
                     root.getChildren().setAll(ap);
-                    fxmlLoader.<MainWindow>getController().setDuke(duke);
+//                    fxmlLoader.<MainWindow>getController().setDuke(duke);
                 } catch (IOException ex) {
                     Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
