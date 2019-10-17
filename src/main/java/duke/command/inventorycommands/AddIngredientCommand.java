@@ -1,7 +1,7 @@
 package duke.command.inventorycommands;
 
 import duke.command.CommandIngredients;
-import duke.ingredientlist.IngredientList;
+import duke.list.ingredientlist.IngredientList;
 import duke.storage.IngredientStorage;
 
 import duke.ui.Ui;
@@ -20,12 +20,12 @@ public class AddIngredientCommand extends CommandIngredients {
     }
 
     @Override
-    public ArrayList<String> feedback(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) throws ParseException {
+    public ArrayList<String> execute(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_ADD_INGREDIENT)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             System.out.println("stuck here1");
-        } else if (userInput.trim().charAt(13) == ' ') {
+        } else if (userInput.trim().charAt(14) == ' ') {
             String description = userInput.split("\\s",2)[1].trim();
             if (description.contains("q/")) {
                 String ingredientName = description.split("q/", 2)[0].trim();
@@ -39,13 +39,13 @@ public class AddIngredientCommand extends CommandIngredients {
                         ingredientStorage.saveFile(ingredientList);
                         int index = ingredientList.getSize();
                         System.out.println(index);
-                        arrayList.add(MESSAGE_ADDED + "       " + ingredientList.listIngredients().get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + " tasks in the list");
+                        arrayList.add(MESSAGE_ADDED + "       " + ingredientList.listOfIngredients().get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + " tasks in the list");
                     } else {
                         arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY);
                     }
                 }
             } else {
-                arrayList.add(ERROR_MESSAGE_INVALID_FORMAT);
+                arrayList.add(ERROR_MESSAGE_ADD_INCORRECT_FORMAT);
             }
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
